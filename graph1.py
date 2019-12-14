@@ -6,7 +6,6 @@ Implementação de um grafo simples
 from collections import defaultdict
 from queue import Queue
 
-
 def find_with_dfs(graph, st, tgt):
     visited = set()
     def _dfs(cur):
@@ -15,21 +14,6 @@ def find_with_dfs(graph, st, tgt):
             if neighbor not in visited:
                 _dfs(neighbor)
     _dfs(st, tgt)
-    return tgt in visited
-
-
-def find_with_bfs(graph, st, tgt):
-    visited = set()
-    q = Queue()
-    q.put(st)
-
-    while not q.empty():
-        cur = q.get()
-        visited.add(cur)
-        for neighbor, _ in graph.graph[cur]:
-            if neighbor not in visited:
-                q.put(neighbor)
-
     return tgt in visited
 
 
@@ -44,6 +28,20 @@ class Graph:
     def show_graph(self):
         for node, neighbors in self.graph.items():
             print(f'{node}:  {neighbors}')        
+
+    def bfs(self, st, tgt):
+        visited = set()
+        q = Queue()
+        q.put(st)
+        while not q.empty():
+            cur = q.get()
+            visited.add(cur)
+            for neighbor, _ in self.graph[cur]:
+                if neighbor not in visited:
+                    q.put(neighbor)
+
+        return tgt in visited
+
 
 my_graph = Graph()
 my_graph.add_edge(1, 2)
