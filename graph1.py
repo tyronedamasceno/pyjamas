@@ -9,9 +9,10 @@ from collections import defaultdict
 def find_with_dfs(graph, st, tgt):
     visited = set()
     def _dfs(cur, tgt):
-        for neighbor in graph.graph[cur]:
-            visited.add(neighbor[0])
-            _dfs(neighbor[0], tgt)
+        visited.add(cur)
+        for neighbor, _ in graph.graph[cur]:
+            if neighbor not in visited:
+                _dfs(neighbor, tgt)
     _dfs(st, tgt)
     return tgt in visited
 
